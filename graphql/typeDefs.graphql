@@ -1,0 +1,44 @@
+type Query {
+  getDepartments: [Department],
+  getDepartment(id: ID!): Department,
+  getDepartmentByName(name: String): Department,
+
+  getDesignations: [Designation],
+  getDesignation(id: ID!): Designation,
+  getDesignationById(id: [ID!]): [Designation]
+
+  getEmployeeDetails: [Employee]
+  getEmployeeDetail(id: ID!): Employee
+}
+
+type Mutation {
+  createDepartment(id: ID, name: String): Department,
+  updateDepartment(id: ID, name: String): String,
+  deleteDepartment(id: ID): String,
+
+  createDesignation(id: ID, name: String): Designation,
+  updateDesignation(id: ID, name: String): String,
+  deleteDesignation(id: ID): String
+}
+
+type Department {
+  id: ID!
+  name: String
+}
+
+type Designation {
+  id: ID!
+  name: String
+}
+
+type Employee {
+  id:ID!
+  Name: String
+  Email: String
+  Designation_id: Int
+  Manager_id: Int
+  Department_id: Int,
+  designation: Designation
+  department: Department
+  manager: Employee
+}
