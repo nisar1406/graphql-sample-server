@@ -1,5 +1,5 @@
 const {
-    department, designation, employee
+  department, designation, employee
 } = require('../models');
 
 const Query = {
@@ -95,7 +95,6 @@ const Mutation = {
     else message = "Cannot find the department."
     return message
   },
-
   createDesignation: (root, { name }) => {
     return designation.create({ name })
   },
@@ -112,6 +111,51 @@ const Mutation = {
     if (designation) message = "Designation deleted successfully"
     else message = "Cannot find the designation."
     return message
+  },
+  createEmployee: async (root, {
+    Name,
+    Email,
+    Designation_id,
+    Department_id,
+    Manager_id
+  }) => {
+    try {
+      await employee && employee.create({
+        Name,
+        Email,
+        Designation_id,
+        Department_id,
+        Manager_id
+      })
+      return "Employee created successfully"
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  updateEmployee: async (root, {
+    id,
+    Name,
+    Email,
+    Designation_id,
+    Department_id,
+    Manager_id
+  }) => {
+    try {
+      await employee && employee.update({
+        Name,
+        Email,
+        Designation_id,
+        Department_id,
+        Manager_id
+      }, { where: { id: id } });
+      return "Employee updated successfully";
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  deleteEmployee: async (root, { id }) => {
+    await employee.destroy({ where: { id: id } })
+    return "Employee updated successfully";
   }
 }
 
